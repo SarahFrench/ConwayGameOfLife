@@ -53,3 +53,8 @@ Then the next state also contains no live cells
 - the number of steps/turns could be a param passed into the initialiser, or the class could have a .step() function
 - 2D grid will be an array of arrays, corresponding to rows and columns.
 - Elements could be just booleans, 0 = dead and 1 = alive, or could be instances of another class?
+
+TDD:
+
+- Use the scenarios to write tests
+- Using the exact Given/When/Tests in cucumber would be nice, but maybe a stretch goal

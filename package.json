@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/SarahFrench/ConwayGameOfLife/issues"
   },
-  "homepage": "https://github.com/SarahFrench/ConwayGameOfLife#readme"
+  "homepage": "https://github.com/SarahFrench/ConwayGameOfLife#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "cucumber": "^6.0.5",
+    "mocha": "^6.2.2"
+  }
 }
