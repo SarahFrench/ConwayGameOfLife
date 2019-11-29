@@ -58,3 +58,8 @@ TDD:
 
 - Use the scenarios to write tests
 - Using the exact Given/When/Tests in cucumber would be nice, but maybe a stretch goal
+
+
+### 2019-11-29
+
+Started making the class for the game, no rules implemented yet. Set up a test checking that an empty board is empty and remains empty after one turn. I expect this test will break in future as I work on implementing the life/death rules.
