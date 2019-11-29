@@ -10,6 +10,32 @@ class GameOfLife {
     this.turns += 1;
   }
 
+  shouldCellDie(x,y){
+
+    let neighbours = this.numberOfLivingNeighbours(x,y);
+
+    //yes, die if fewer than two or more than 3 neighbours
+    return neighbours < 2 || neighbours > 3;
+  }
+
+  numberOfLivingNeighbours(x,y){
+    let neighbourVectors = [
+      [1,1],
+      [1,0],
+      [0,1],
+      [-1,1]
+    ];
+
+    let aliveNeighbours;
+
+    neighbourVectors.forEach( vector => {
+
+      //TODO cycle through positions checking for life
+    })
+
+    return aliveNeighbours;
+  }
+
   printBoard(){
     console.log(this.gameState)
   }
