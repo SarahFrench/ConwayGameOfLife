@@ -1,6 +1,11 @@
 # Conway's Game Of Life
 
-## Setup
+## Setting up the project
+
+Clone this repository and run `npm install`.
+Mocha is used to run tests for different scenarios (see below). Either use the command `mocha` or `npm run test` to run them.
+
+## Brief
 
 - infinite 2d grid made of cells
 - each cell can be living or dead - i.e. boolean state
