@@ -30,6 +30,9 @@ class GameOfLife {
           if(cell){
             //position is alive, decide what to mark in futureState
             this.futureState[y].push(this.shouldCellDie(x,y) ? 0 : 1);
+          } else if(this.shouldCellBecomeAlive(x,y)) {
+            //position is flanked by 3 alive neighbours; live!
+            this.futureState[y].push(1);
           } else {
             //position is dead, mark that in futureState
             this.futureState[y].push(0);
@@ -46,8 +49,20 @@ class GameOfLife {
 
     let neighbours = this.numberOfLivingNeighbours(x,y);
 
-    //yes, die if fewer than two or more than 3 neighbours
+    /*
+    Return true, die, if fewer than two OR more than 3 neighbours.
+    Otherwise, false; don't die.
+    */
     return neighbours < 2 || neighbours > 3;
+  }
+
+  shouldCellBecomeAlive(x,y){
+    let neighbours = this.numberOfLivingNeighbours(x,y);
+    /*
+    Return true, live if exactly 3 neighbours.
+    Otherwise, false; don't live.
+    */
+    return neighbours === 3;
   }
 
   numberOfLivingNeighbours(x,y){
