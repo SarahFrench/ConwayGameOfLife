@@ -5,25 +5,6 @@ const Life = require('../GameOfLife').GameOfLife;
 describe("Scenario 0 No interactions", function() {
 // Given a game of life When there are no live cells Then on the next step there are still no live cells
 
-  it("an empty board is empty", function() {
-  // Given a game of life with an empty 5x5 board
-    let board = [
-      [0,0,0,0,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0]
-    ];
-    let game = new Life(board);
-
-  // When I search for any life
-    let lifePresent = game.searchForAnyLife();
-
-  // Then I expect to see nothing
-    expect(lifePresent).to.be.false;
-
-  })
-
   it("after one turn, a empty board remains empty", function() {
   // Given a game of life with an empty 5x5 board
     let board = [

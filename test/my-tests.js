@@ -1,6 +1,48 @@
 const {expect} = require('chai');
 const Life = require('../GameOfLife').GameOfLife;
 
+describe("Detecting any life", function(){
+
+  it("an empty board is found to be empty", function() {
+  // Given a game of life with an empty 5x5 board
+    let board = [
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,0,0,0]
+    ];
+    let game = new Life(board);
+
+  // When I search for any life
+    let lifePresent = game.searchForAnyLife();
+
+  // Then I expect to see nothing
+    expect(lifePresent).to.be.false;
+
+  })
+
+  it("an board containing life is not found to be empty", function() {
+  // Given a game of life with an empty 5x5 board
+    let board = [
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,1,0,0],
+      [0,0,0,0,0],
+      [0,0,0,0,0]
+    ];
+    let game = new Life(board);
+
+  // When I search for any life
+    let lifePresent = game.searchForAnyLife();
+
+  // Then I expect to see nothing
+    expect(lifePresent).to.be.true;
+
+  })
+
+})
+
 describe("Detecting neighbours", function() {
   it("identifies that there are no living neighbours for a cell on its own", function() {
     /*
