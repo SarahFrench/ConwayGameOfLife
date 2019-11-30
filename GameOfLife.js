@@ -32,11 +32,40 @@ class GameOfLife {
       [-1,1]
     ];
 
-    let aliveNeighbours;
+    let aliveNeighbours = 0;
 
     neighbourVectors.forEach( vector => {
+      //positive side
+      let neighbourX = x + vector[0];
+      let neighbourY = y + vector[1];
 
-      //TODO cycle through positions checking for life
+      if(
+        neighbourY >= 0 &&
+        neighbourX >= 0 &&
+        neighbourY <= this.largestYCoordinate &&
+        neighbourX <= this.largestXCoordinate
+      ){
+        //coordinates are in bounds
+        if (this.gameState[neighbourY][neighbourX]){
+          aliveNeighbours += 1;
+        }
+      }
+
+      //negative side
+      neighbourX = x - vector[0];
+      neighbourY = y - vector[1];
+
+      if(
+        neighbourY >= 0 &&
+        neighbourX >= 0 &&
+        neighbourY <= this.largestYCoordinate &&
+        neighbourX <= this.largestXCoordinate
+      ){
+        //coordinates are in bounds
+        if (this.gameState[neighbourY][neighbourX]){
+          aliveNeighbours += 1;
+        }
+      }
     })
 
     return aliveNeighbours;
