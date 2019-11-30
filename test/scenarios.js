@@ -93,43 +93,6 @@ describe("Scenario 1: Underpopulation", function() {
 
   })
 
-  it("cells with 2 neighbours don't die", function() {
-    /*
-    Given a game of life
-    When a live cell has two neighbours:
-      Cell 1 (x=2 y=1) - 2 neighbours
-      Cell 2 (x=2 y=2) - 2 neighbours
-      Cell 3 (x=3 y=2) - 2 neighbours
-    */
-
-    let board = [
-      [0,0,0,0,0],
-      [0,0,1,0,0],
-      [0,0,1,1,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0]
-    ];
-    let game = new Life(board);
-
-    let cell1Before = game.currentState[1][2];
-    let cell2Before = game.currentState[2][2];
-    let cell3Before = game.currentState[2][3];
-
-    game.takeTurn();
-
-    // Then the cell survives
-    let cell1After = game.currentState[1][2];
-    let cell2After = game.currentState[2][2];
-    let cell3After = game.currentState[2][3];
-
-    //All were alive before
-    expect(cell1Before).to.equal(1);
-    expect(cell2Before).to.equal(1);
-    expect(cell3Before).to.equal(1);
-    //All are alive after
-    expect(cell1After).to.equal(1);
-    expect(cell2After).to.equal(1);
-    expect(cell3After).to.equal(1);
 
 
   })
