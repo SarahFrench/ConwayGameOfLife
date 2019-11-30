@@ -164,17 +164,9 @@ describe("Scenario 2: Overcrowding", function() {
 
     game.takeTurn();
 
-    // Then that cell dies (and for this test's board other cells don't)
-    let cell1 = game.currentState[2][2];
-    let cell2 = game.currentState[1][2];
-    let cell3 = game.currentState[2][1];
-    let cell4 = game.currentState[2][3];
-    let cell5 = game.currentState[3][2];
-
+    // Then that cell dies
+    let cell = game.currentState[2][2];
     expect(cell1).to.equal(0);
-    expect(cell2).to.equal(1);
-    expect(cell3).to.equal(1);
-    expect(cell4).to.equal(1);
-    expect(cell5).to.equal(1);
+
   })
 })
