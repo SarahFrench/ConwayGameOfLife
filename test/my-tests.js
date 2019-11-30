@@ -156,7 +156,7 @@ describe("Detecting neighbours", function() {
   })
 })
 
-describe("Determines who should die", function() {
+describe("Determining who should die", function() {
   it("a single cell will die", function() {
     // Given a game of life with a 3x3 board and one live cell at the center
     let board = [
@@ -170,6 +170,25 @@ describe("Determines who should die", function() {
     let death = game.shouldCellDie([1,1]);
 
     // Then I expect to see no live neighbours counted
+    expect(death).to.be.true;
+
+  })
+
+  it("a cell with 4 neighbours will die", function() {
+    /*
+    Given a game of life with a 3x3 board
+    When one live cell has 4 live neighbours
+    */
+    let board = [
+      [0,1,0],
+      [1,1,1],
+      [0,1,0]
+    ];
+    let game = new Life(board);
+
+    // Then I expect that cell to die
+
+    let death = game.shouldCellDie([1,1]);
     expect(death).to.be.true;
 
   })
