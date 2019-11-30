@@ -3,6 +3,12 @@ class GameOfLife {
   constructor(gameBoard){
     this.gameState = gameBoard;
     this.turns = 0
+    if(gameBoard.length > 0 && gameBoard[0].length > 0){
+      //board is 2d
+      this.largestYCoordinate = gameBoard.length - 1;
+      this.largestXCoordinate = gameBoard[0].length - 1;
+    }
+
   }
 
   takeTurn(){
