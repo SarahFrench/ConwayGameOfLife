@@ -19,7 +19,7 @@ Mocha is used to run tests for different scenarios (see below). Either use the c
   ### Assumptions made:
   The grid used in my solution isn't infinite as the brief describes, but my code can take in starting states of different sizes.
 
-  The grid doesn't wrap around (yet?), but you could perhaps add this using a modulo to calculate coordinates when checking on alive neighbours. This would probably allow the simulation able to sustain itself much longer, as the boundaries reduce the number of possible neighbours.
+  The grid doesn't wrap around (yet?), but you could perhaps add this using a modulo to calculate coordinates when checking on alive neighbours. This would probably allow the simulation to sustain itself much longer, as the boundaries reduce the number of possible neighbours.
 
   Also, there's the assumption the starting state will have minimum dimensions of 2x2. If something else is entered the class is designed to throw an error.
 
