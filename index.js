@@ -18,5 +18,4 @@ game.printBoard();
 game.takeTurn();
 
 console.log(`Turn: ${game.turns}`);
-game.takeTurn();
 game.printBoard();
