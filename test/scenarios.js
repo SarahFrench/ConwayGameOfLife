@@ -166,7 +166,7 @@ describe("Scenario 2: Overcrowding", function() {
 
     // Then that cell dies
     let cell = game.currentState[2][2];
-    expect(cell1).to.equal(0);
+    expect(cell).to.equal(0);
 
   })
 })
