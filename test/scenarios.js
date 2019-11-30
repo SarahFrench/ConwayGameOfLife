@@ -170,3 +170,34 @@ describe("Scenario 2: Overcrowding", function() {
 
   })
 })
+
+describe("Scenario 3: Survival", function() {
+  // Given a game of life When a live cell has two or three neighbours Then this cell stays alive
+
+  it("cells with 2 or 3 neighbours survive", function() {
+    /*
+    Given a game of life
+    When a live cell has two or three neighbours
+      Cell 1 (x=1 y=1) - 2 neighbours => LIVE
+      Cell 2 (x=3 y=3) - 3 neighbours => LIVE
+    */
+
+    let board = [
+      [0,0,0,0,0],
+      [1,1,1,0,0],
+      [0,0,0,1,0],
+      [0,0,1,1,1],
+      [0,0,0,0,0]
+    ];
+    let game = new Life(board);
+
+    game.takeTurn();
+
+    // Then this cell stays alive
+    let cell1 = game.currentState[1][1];
+    let cell2 = game.currentState[3][3];
+    expect(cell1).to.equal(1);
+    expect(cell2).to.equal(1);
+
+  })
+})
