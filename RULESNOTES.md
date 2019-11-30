@@ -1,9 +1,11 @@
 Given a 3x3 grid, with a live cell in the middle
 ```
-  012
-0 ooo
-1 oxo
-2 ooo
+
+y
+0  ooo
+1  oxo
+2  ooo
+x  012
 
 live cell is at x=1, y=1
 
@@ -16,7 +18,7 @@ Use different signs to control what position on vector:
 
 (x,y)
 
-- [1,1] +ve = diagonal top left, -ve = bottom right
+- [1,1] -ve = diagonal top left, +ve = bottom right
 - [1,0] horizontal, +ve = right, -ve = left
 - [0,1] vertical, +ve = down, -ve = up
-- [-1,1] +ve = diagonal bottom right, -ve = top right
+- [-1,1] +ve = diagonal bottom left, -ve = top right
