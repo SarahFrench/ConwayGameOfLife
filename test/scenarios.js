@@ -191,3 +191,111 @@ describe("Scenario 4: Creation of Life", function() {
     expect(game.isCellAlive(position.x, position.y)).to.be.true;
   })
 })
+
+describe("Scenario 5: Grid with no live cells", function() {
+// Very similar test to scenario 1
+// I think scenario 1 was scoped to just one position, and this test looks at the whole board
+
+  it("when the starting state has no live, no live appears following a turn", function() {
+    // Given a game of life with the initial state containing no live cells
+    let board = [
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,0,0,0]
+    ];
+    let game = new Life(board);
+
+    // When the game evolves one turn
+    game.takeTurn();
+
+    // Then the next state also contains no live cells
+    expect(game.searchForAnyLife()).to.be.false;
+  })
+})
+
+describe("Scenario 6: Expected game outcome for seeded grid", function() {
+
+  it("evolves as expected over two turns from a defined starting state", function() {
+    /*
+    Given a game of life with the initial state
+      +---+---+---+
+      | O | O | O |
+      | X | X | X |
+      | O | O | O |
+      +---+---+---+
+
+      Positions 1-9 defined row by row, left to right
+    */
+    let board = [
+      [0,0,0],
+      [1,1,1],
+      [0,0,0]
+    ];
+    let game = new Life(board);
+
+    let position1 = {x:0, y:0};
+    let position2 = {x:1, y:0};
+    let position3 = {x:2, y:0};
+    let position4 = {x:0, y:1};
+    let position5 = {x:1, y:1};
+    let position6 = {x:2, y:1};
+    let position7 = {x:0, y:2};
+    let position8 = {x:1, y:2};
+    let position9 = {x:2, y:2};
+
+    // When the game evolves one turn
+    game.takeTurn();
+
+    /*
+    Then the next state is...
+      +---+---+---+
+      | O | X | O |
+      | O | X | O |
+      | O | X | O |
+      +---+---+---+
+    */
+
+    //row 1
+    expect(game.isCellAlive(position1.x, position1.y)).to.be.false;
+    expect(game.isCellAlive(position2.x, position2.y)).to.be.true;
+    expect(game.isCellAlive(position3.x, position3.y)).to.be.false;
+    //row 2
+    expect(game.isCellAlive(position4.x, position4.y)).to.be.false;
+    expect(game.isCellAlive(position5.x, position5.y)).to.be.true;
+    expect(game.isCellAlive(position6.x, position6.y)).to.be.false;
+    //row 3
+    expect(game.isCellAlive(position7.x, position7.y)).to.be.false;
+    expect(game.isCellAlive(position8.x, position8.y)).to.be.true;
+    expect(game.isCellAlive(position9.x, position9.y)).to.be.false;
+
+    // When the game evolves another turn
+    game.takeTurn();
+
+    /*
+    Then the next state is...
+      +---+---+---+
+      | O | O | O |
+      | X | X | X |
+      | O | O | O |
+      +---+---+---+
+    */
+
+    //row 1
+    expect(game.isCellAlive(position1.x, position1.y)).to.be.false;
+    expect(game.isCellAlive(position2.x, position2.y)).to.be.false;
+    expect(game.isCellAlive(position3.x, position3.y)).to.be.false;
+    //row 2
+    expect(game.isCellAlive(position4.x, position4.y)).to.be.true;
+    expect(game.isCellAlive(position5.x, position5.y)).to.be.true;
+    expect(game.isCellAlive(position6.x, position6.y)).to.be.true;
+    //row 3
+    expect(game.isCellAlive(position7.x, position7.y)).to.be.false;
+    expect(game.isCellAlive(position8.x, position8.y)).to.be.false;
+    expect(game.isCellAlive(position9.x, position9.y)).to.be.false;
+
+
+
+  })
+})
