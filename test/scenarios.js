@@ -146,10 +146,10 @@ describe("Scenario 2: Overcrowding", function() {
     Given a game of life
     When a live cell has more than three neighbours
       Cell (x=2 y=2) - 4 neighbours => DIE
-      Neighbour 1 (x=2 y=1) - 3 neighbours => LIVE
-      Neighbour 2 (x=1 y=2) - 3 neighbours => LIVE
-      Neighbour 3 (x=3 y=2) - 3 neighbours => LIVE
-      Neighbour 4 (x=2 y=3) - 3 neighbours => LIVE
+      Neighbour 1 (x=2 y=1) - 3 neighbours => SURVIVE
+      Neighbour 2 (x=1 y=2) - 3 neighbours => SURVIVE
+      Neighbour 3 (x=3 y=2) - 3 neighbours => SURVIVE
+      Neighbour 4 (x=2 y=3) - 3 neighbours => SURVIVE
     */
 
     let board = [
@@ -177,8 +177,8 @@ describe("Scenario 3: Survival", function() {
     /*
     Given a game of life
     When a live cell has two or three neighbours
-      Cell 1 (x=1 y=1) - 2 neighbours => LIVE
-      Cell 2 (x=3 y=3) - 3 neighbours => LIVE
+      Cell 1 (x=1 y=1) - 2 neighbours => SURVIVE
+      Cell 2 (x=3 y=3) - 3 neighbours => SURVIVE
     */
 
     let board = [
@@ -198,5 +198,39 @@ describe("Scenario 3: Survival", function() {
     expect(cell1).to.equal(1);
     expect(cell2).to.equal(1);
 
+  })
+})
+
+describe("Scenario 4: Creation of Life", function() {
+  /*
+  Given a game of life
+  When an empty position has exactly three neighbouring cells
+  Then a cell is created in this position
+  */
+
+  it("empty cells with exactly 3 neighbours become alive", function() {
+    /*
+    Given a game of life
+    When an empty position has exactly three neighbouring cells
+      Position (x=1 y=1) - is currently dead, has 3 neighbours => BECOME ALIVE
+      Cell 1 (x=0 y=0)
+      Cell 2 (x=1 y=0)
+      Cell 3 (x=0 y=1)
+    */
+
+    let board = [
+      [1,1,0,0,0],
+      [1,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,0,0,0]
+    ];
+    let game = new Life(board);
+
+    game.takeTurn();
+
+    // Then this cell stays alive
+    let position = game.currentState[1][1];
+    expect(position).to.equal(1);
   })
 })
