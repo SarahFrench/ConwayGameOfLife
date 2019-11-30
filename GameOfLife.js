@@ -15,6 +15,22 @@ class GameOfLife {
 
   }
 
+  initialStateValid(board){
+    if( !board || board.length < 2){
+      //board absent or has less than 2 rows
+      return false;
+    } else {
+      //check for consistent row length
+      let rowsConsistentLength = true;
+
+      board.forEach( row => {
+        rowsConsistentLength = (row.length != board[0].length) ? false : rowsConsistentLength;
+      })
+
+      return rowsConsistentLength;
+    }
+  }
+
   resetFutureState(){
     this.futureState = [];
     for(let i=0; i <= this.largestYCoordinate; i++){
@@ -113,23 +129,9 @@ class GameOfLife {
   }
 
   printBoard(){
-    console.log(this.currentState)
-  }
-
-  initialStateValid(board){
-    if( !board || board.length < 2){
-      //board absent or has less than 2 rows
-      return false;
-    } else {
-
-      let rowsConsistentLength = true;
-
-      board.forEach( row => {
-        rowsConsistentLength = (row.length != board[0].length) ? false : rowsConsistentLength;
-      })
-
-      return rowsConsistentLength;
-    }
+    this.currentState.forEach(row => {
+      console.log(row);
+    })
   }
 
   searchForAnyLife(){
