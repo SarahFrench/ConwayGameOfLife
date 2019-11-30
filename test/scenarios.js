@@ -6,7 +6,10 @@ describe("Scenario 0: No interactions", function() {
 // Given a game of life When there are no live cells Then on the next step there are still no live cells
 
   it("after one turn, a empty board remains empty", function() {
-  // Given a game of life with an empty 5x5 board
+    /*
+    Given a game of life
+    When there are no live cells
+    */
     let board = [
       [0,0,0,0,0],
       [0,0,0,0,0],
@@ -16,10 +19,9 @@ describe("Scenario 0: No interactions", function() {
     ];
     let game = new Life(board);
 
-  // When one turn elapses
+    // Then on the next step there are still no live cells
     game.takeTurn();
 
-  // Then I expect to see 1 turn has passed and there is no life
     expect(game.searchForAnyLife()).to.be.false;
     expect(game.turns).to.equal(1);
 
@@ -46,16 +48,14 @@ describe("Scenario 1: Underpopulation", function() {
       [0,0,0,0,1]
     ];
     let game = new Life(board);
+    let cell1 = {x:2 , y:2}
+    let cell2 = {x:4 , y:4}
 
+    // Then the cell dies (after the next turn)
     game.takeTurn();
 
-    // Then the cell dies
-    let cell1 = game.currentState[2][2];
-    let cell2 = game.currentState[4][4];
-
-    expect(cell1).to.equal(0);
-    expect(cell2).to.equal(0);
-    expect(game.searchForAnyLife()).to.be.false;
+    expect(game.isCellAlive(cell1.x, cell1.y)).to.be.false;
+    expect(game.isCellAlive(cell2.x, cell2.y)).to.be.false;
 
   })
 
@@ -77,23 +77,18 @@ describe("Scenario 1: Underpopulation", function() {
       [0,0,0,1,1]
     ];
     let game = new Life(board);
+    let cell1 = {x: 2, y:2};
+    let cell2 = {x: 3, y:2};
+    let cell3 = {x: 3, y:4};
+    let cell4 = {x: 4, y:4};
 
     game.takeTurn();
 
     // Then the cell dies
-    let cell1 = game.currentState[2][2];
-    let cell2 = game.currentState[2][3];
-    let cell3 = game.currentState[4][3];
-    let cell4 = game.currentState[4][4];
-
-    expect(cell1).to.equal(0);
-    expect(cell2).to.equal(0);
-    expect(cell3).to.equal(0);
-    expect(cell4).to.equal(0);
-
-  })
-
-
+    expect(game.isCellAlive(cell1.x,cell1.y)).to.be.false;
+    expect(game.isCellAlive(cell2.x,cell2.y)).to.be.false;
+    expect(game.isCellAlive(cell3.x,cell3.y)).to.be.false;
+    expect(game.isCellAlive(cell4.x,cell4.y)).to.be.false;
 
   })
 
@@ -109,10 +104,10 @@ describe("Scenario 2: Overcrowding", function() {
     Given a game of life
     When a live cell has more than three neighbours
       Cell (x=2 y=2) - 4 neighbours => DIE
-      Neighbour 1 (x=2 y=1) - 3 neighbours => SURVIVE
-      Neighbour 2 (x=1 y=2) - 3 neighbours => SURVIVE
-      Neighbour 3 (x=3 y=2) - 3 neighbours => SURVIVE
-      Neighbour 4 (x=2 y=3) - 3 neighbours => SURVIVE
+      Neighbour 1 (x=2 y=1)
+      Neighbour 2 (x=1 y=2)
+      Neighbour 3 (x=3 y=2)
+      Neighbour 4 (x=2 y=3)
     */
 
     let board = [
@@ -123,12 +118,12 @@ describe("Scenario 2: Overcrowding", function() {
       [0,0,0,0,0]
     ];
     let game = new Life(board);
+    let cell = {x: 2, y:2};
 
     game.takeTurn();
 
     // Then that cell dies
-    let cell = game.currentState[2][2];
-    expect(cell).to.equal(0);
+    expect(game.isCellAlive(cell.x, cell.y)).to.be.false;
 
   })
 })
@@ -152,15 +147,14 @@ describe("Scenario 3: Survival", function() {
       [0,0,0,0,0]
     ];
     let game = new Life(board);
+    let cell1 = {x: 1, y:1};
+    let cell2 = {x: 3, y:3};
 
     game.takeTurn();
 
     // Then this cell stays alive
-    let cell1 = game.currentState[1][1];
-    let cell2 = game.currentState[3][3];
-    expect(cell1).to.equal(1);
-    expect(cell2).to.equal(1);
-
+    expect(game.isCellAlive(cell1.x, cell1.y)).to.be.true;
+    expect(game.isCellAlive(cell2.x, cell2.y)).to.be.true;
   })
 })
 
@@ -189,11 +183,11 @@ describe("Scenario 4: Creation of Life", function() {
       [0,0,0,0,0]
     ];
     let game = new Life(board);
+    let position = {x: 1, y:1};
 
     game.takeTurn();
 
     // Then this cell stays alive
-    let position = game.currentState[1][1];
-    expect(position).to.equal(1);
+    expect(game.isCellAlive(position.x, position.y)).to.be.true;
   })
 })

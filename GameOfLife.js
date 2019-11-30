@@ -141,6 +141,10 @@ class GameOfLife {
     })
     return lifeFound;
   }
+
+  isCellAlive(x,y){
+    return this.currentState[y][x] === 1;
+  }
 }
 
 module.exports = {
