@@ -43,15 +43,14 @@ class GameOfLife {
     this.currentState.forEach( (row, y) => {
       row.forEach( (cell, x) => {
           //cycle through every poisition
-          if(cell){
-            //position is alive, decide what to mark in futureState
-            this.futureState[y].push(this.shouldCellDie(x,y) ? 0 : 1);
-          } else if(this.shouldCellBecomeAlive(x,y)) {
-            //position is flanked by 3 alive neighbours; live!
-            this.futureState[y].push(1);
+          if(this.isCellAlive(x,y)){
+            //position is alive, should it die?
+            let futureValue = this.shouldCellDie(x,y) ? 0 : 1;
+            this.futureState[y].push(futureValue);
           } else {
-            //position is dead, mark that in futureState
-            this.futureState[y].push(0);
+            //position is dead, should it become alive?
+            let futureValue = this.shouldCellBecomeAlive(x,y) ? 1 : 0;
+            this.futureState[y].push(futureValue);
           }
       })
     })
