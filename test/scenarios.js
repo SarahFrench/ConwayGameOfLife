@@ -90,7 +90,6 @@ describe("Scenario 1: Underpopulation", function() {
     expect(cell2).to.equal(0);
     expect(cell3).to.equal(0);
     expect(cell4).to.equal(0);
-    expect(game.searchForAnyLife()).to.be.false;
 
   })
 
