@@ -51,9 +51,9 @@ describe("Scenario 1: Underpopulation", function() {
     game.takeTurn();
 
     // Then the cell dies
-    let cell1 = game.gameState[2][2];
-    let cell2 = game.gameState[4][3];
-    let cell3 = game.gameState[4][4];
+    let cell1 = game.currentState[2][2];
+    let cell2 = game.currentState[4][3];
+    let cell3 = game.currentState[4][4];
 
     expect(cell1).to.equal(0);
     expect(cell2).to.equal(0);
