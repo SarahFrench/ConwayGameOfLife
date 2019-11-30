@@ -82,32 +82,32 @@ Use these for test driven development
 >
 >```
 >+---+---+---+
-| O | O | O |
-| X | X | X |
-| O | O | O |
-+---+---+---+
-```
+>| O | O | O |
+>| X | X | X |
+>| O | O | O |
+>+---+---+---+
+>```
 >When the game evolves one turn
 >
 >Then the next state is...
 >
 >```
 >+---+---+---+
-| O | X | O |
-| O | X | O |
-| O | X | O |
-+---+---+---+
-```
+>| O | X | O |
+>| O | X | O |
+>| O | X | O |
+>+---+---+---+
+>```
 >When the game evolves another turn
 >
 >Then the next state is...
 >```
 >+---+---+---+
-| O | O | O |
-| X | X | X |
-| O | O | O |
-+---+---+---+
-```
+>| O | O | O |
+>| X | X | X |
+>| O | O | O |
+>+---+---+---+
+>```
 ### My initial thoughts
 
 - make the game as a class
