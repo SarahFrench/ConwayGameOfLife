@@ -1,3 +1,5 @@
+# 2019-11-29: Thinking about vectors
+
 Given a 3x3 grid, with a live cell in the middle
 ```
 
