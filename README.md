@@ -1,6 +1,6 @@
 # Conway's Game Of Life
 
-See also [my notes during this project]('https://github.com/SarahFrench/ConwayGameOfLife/blob/master/NOTES-ON-PROGRESS.md')
+See also [my notes during this project](https://github.com/SarahFrench/ConwayGameOfLife/blob/master/NOTES-ON-PROGRESS.md)
 
 ## Setting up the project
 
