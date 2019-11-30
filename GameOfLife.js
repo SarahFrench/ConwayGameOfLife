@@ -1,13 +1,15 @@
 class GameOfLife {
 
-  constructor(gameBoard){
-    this.gameState = gameBoard;
-    this.turns = 0
-    if(gameBoard.length > 0 && gameBoard[0].length > 0){
-      //board is 2d
-      this.largestYCoordinate = gameBoard.length - 1;
-      this.largestXCoordinate = gameBoard[0].length - 1;
+  constructor(board){
+    if(!this.initialStateValid(board)){
+      throw new Error('Make sure the supplied board is 2D, with consistent row lengths');
     }
+
+    this.currentState = board;
+    this.largestYCoordinate = board.length - 1;
+    this.largestXCoordinate = board[0].length - 1;
+    this.turns = 0;
+
 
   }
 
@@ -46,7 +48,7 @@ class GameOfLife {
         neighbourX <= this.largestXCoordinate
       ){
         //coordinates are in bounds
-        if (this.gameState[neighbourY][neighbourX]){
+        if (this.currentState[neighbourY][neighbourX]){
           aliveNeighbours += 1;
         }
       }
@@ -62,7 +64,7 @@ class GameOfLife {
         neighbourX <= this.largestXCoordinate
       ){
         //coordinates are in bounds
-        if (this.gameState[neighbourY][neighbourX]){
+        if (this.currentState[neighbourY][neighbourX]){
           aliveNeighbours += 1;
         }
       }
@@ -72,16 +74,28 @@ class GameOfLife {
   }
 
   printBoard(){
-    console.log(this.gameState)
+    console.log(this.currentState)
   }
 
-  printTurns(){
-    console.log(this.turns);
+  initialStateValid(board){
+    if( !board || board.length < 2){
+      //board absent or has less than 2 rows
+      return false;
+    } else {
+
+      let rowsConsistentLength = true;
+
+      board.forEach( row => {
+        rowsConsistentLength = (row.length != board[0].length) ? false : rowsConsistentLength;
+      })
+
+      return rowsConsistentLength;
+    }
   }
 
   searchForAnyLife(){
     let lifeFound = false;
-    this.gameState.forEach( row => {
+    this.currentState.forEach( row => {
       row.forEach( cell => {
           lifeFound = cell ? true : lifeFound;
       })
