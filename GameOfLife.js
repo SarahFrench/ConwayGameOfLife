@@ -8,14 +8,38 @@ class GameOfLife {
     this.currentState = board;
     this.largestYCoordinate = board.length - 1;
     this.largestXCoordinate = board[0].length - 1;
+    this.futureState;
     this.turns = 0;
 
+    this.resetFutureState();
 
   }
 
+  resetFutureState(){
+    this.futureState = [];
+    for(let i=0; i <= this.largestYCoordinate; i++){
+      this.futureState[i] = [];
+    }
+  }
+
   takeTurn(){
-    //TODO: code invoking functions that implement the living/dying cells rules
+
+    this.currentState.forEach( (row, y) => {
+      row.forEach( (cell, x) => {
+          //cycle through every poisition
+          if(cell){
+            //position is alive, decide what to mark in futureState
+            this.futureState[y].push(this.shouldCellDie(x,y) ? 0 : 1);
+          } else {
+            //position is dead, mark that in futureState
+            this.futureState[y].push(0);
+          }
+      })
+    })
+
+    this.currentState = this.futureState;
     this.turns += 1;
+    this.resetFutureState()
   }
 
   shouldCellDie(x,y){
