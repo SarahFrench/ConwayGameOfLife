@@ -1,6 +1,59 @@
 const {expect} = require('chai');
 const Life = require('../GameOfLife').GameOfLife;
 
+describe("Fails gracefully when input is bad (searchForAnyLife function)", function(){
+
+  it("an empty board is not valid", function() {
+    //Given an empty board
+    let board = [];
+
+    //When it is the starting state for a game
+    const makeEmptyGame = function(board){
+      let game = new Life(board);
+    }
+
+    //Then I expect it to throw an Error that describes the problem
+    expect(makeEmptyGame).to.throw(Error);
+    expect(makeEmptyGame).to.throw('Make sure the supplied board is 2D, with consistent row lengths');
+  })
+
+  it("a board with inconsistent row lengths is not valid", function() {
+    //Given a 2D board with inconsistent row lengths
+    let board = [
+      [0,0,0],
+      [0,0,0],
+      [0,0]
+    ];
+
+    //When it is the starting state for a game
+    const makeIrregularGame = function(){
+      let game = new Life(board);
+    }
+
+    //Then I expect it to throw an Error that describes the problem
+    expect(makeIrregularGame).to.throw(Error);
+    expect(makeIrregularGame).to.throw('Make sure the supplied board is 2D, with consistent row lengths');
+  })
+
+  it("a board with consistent row lengths is valid", function() {
+    //Given a 2D board with consistent row lengths
+
+    const board = [
+      [0,0,0],
+      [0,0,0]
+    ];
+
+    //When it is the starting state for a game
+    const makeGame = function(){
+      let game = new Life(board);
+    }
+
+    //Then I expect it to throw an Error that describes the problem
+    expect(makeGame).to.not.throw(Error);
+    expect(makeGame).to.not.throw('Make sure the supplied board is 2D, with consistent row lengths');
+  })
+});
+
 describe("Detecting any life (searchForAnyLife function)", function(){
 
   it("an empty board is found to be empty", function() {
