@@ -101,8 +101,9 @@ describe("Detecting neighbours (numberOfLivingNeighbours function)", function() 
         [0,0,0]
       ];
       let game = new Life(board);
+      let cell = {x: 1, y:1};
 
-      let neighbours = game.numberOfLivingNeighbours(1,1);
+      let neighbours = game.numberOfLivingNeighbours(cell.x,cell.y);
 
     // Then I expect to see no live neighbours counted
       expect(neighbours).to.be.equal(0);
@@ -113,8 +114,8 @@ describe("Detecting neighbours (numberOfLivingNeighbours function)", function() 
     /*
     Given a game of life with a 3x3 board
       and all live cells
-    When all the cells are alive
-      and I check for number of live neighbours next to the cell at x=1 y=1
+    When the cell at the centre is alive (x=1 y=1)
+      and all neighbours are alive
     */
 
     let board = [
@@ -123,9 +124,10 @@ describe("Detecting neighbours (numberOfLivingNeighbours function)", function() 
       [1,1,1]
     ];
     let game = new Life(board);
+    let cell = {x: 1, y:1};
 
     // When I check the number of live neighbours surrounding cell (1,1)
-    let neighbours = game.numberOfLivingNeighbours(1,1);
+    let neighbours = game.numberOfLivingNeighbours(cell.x,cell.y);
 
     // Then I expect the number of live neighbours to be 8
     expect(neighbours).to.be.equal(8);
@@ -147,16 +149,17 @@ describe("Detecting neighbours (numberOfLivingNeighbours function)", function() 
       [0,1,1]
     ];
     let game = new Life(board);
-
-    let cell1Neighbours = game.numberOfLivingNeighbours(1,0);
-    let cell2Neighbours = game.numberOfLivingNeighbours(1,1);
-    let cell3Neighbours = game.numberOfLivingNeighbours(2,2);
+    const cell1 = {x:1, y:0, neighbours:3 };
+    const cell2 = {x:1, y:1, neighbours:5 };
+    const cell3 = {x:2, y:2, neighbours:2 };
+    const cells = [cell1, cell2, cell3];
 
     // Then I expect the number of live neighbours to be correct
-    expect(cell1Neighbours).to.be.equal(3);
-    expect(cell2Neighbours).to.be.equal(5);
-    expect(cell3Neighbours).to.be.equal(2);
 
+    cells.forEach( cell => {
+      let neighbours = game.numberOfLivingNeighbours(cell.x, cell.y);
+      expect(neighbours).to.be.equal(cell.neighbours);
+    })
   })
 
   it("can count neighbours for a cell in a corner of the board", function() {
@@ -172,10 +175,12 @@ describe("Detecting neighbours (numberOfLivingNeighbours function)", function() 
       [0,0,0]
     ];
     let game = new Life(board);
-    let neighbours = game.numberOfLivingNeighbours(0,0);
+    const cell = {x:0, y:0, neighbours:3 };
 
     // Then I expect the number of live neighbours to be correct, and no out of boundary errors
-    expect(neighbours).to.be.equal(3);
+    let neighbours = game.numberOfLivingNeighbours(cell.x,cell.y);
+
+    expect(neighbours).to.be.equal(cell.neighbours);
 
   })
 
@@ -192,28 +197,31 @@ describe("Detecting neighbours (numberOfLivingNeighbours function)", function() 
       [1,1,0]
     ];
     let game = new Life(board);
-    let neighbours = game.numberOfLivingNeighbours(0,1);
+    const cell = {x:0, y:1, neighbours:5 };
 
     // Then I expect the number of live neighbours to be correct, and no out of boundary errors
-    expect(neighbours).to.be.equal(5);
+    let neighbours = game.numberOfLivingNeighbours(cell.x,cell.y);
+    expect(neighbours).to.be.equal(cell.neighbours);
 
   })
 })
 
 describe("Determining who should die (shouldCellDie function)", function() {
   it("a single cell will die", function() {
-    // Given a game of life with a 3x3 board and one live cell at the center
+    /*
+      Given a game of life with a 3x3 board
+      When there's a single live cell at the center
+    */
     let board = [
       [0,0,0],
       [0,1,0],
       [0,0,0]
     ];
     let game = new Life(board);
+    const cell = {x:1, y:1};
 
-    // When I check for number of live neighbours
-    let death = game.shouldCellDie([1,1]);
-
-    // Then I expect to see no live neighbours counted
+    // Then I expect to that the cell is meant to die
+    let death = game.shouldCellDie(cell.x,cell.y);
     expect(death).to.be.true;
 
   })
@@ -229,10 +237,10 @@ describe("Determining who should die (shouldCellDie function)", function() {
       [0,1,0]
     ];
     let game = new Life(board);
+    const cell = {x:1, y:1};
 
     // Then I expect that cell to die
-
-    let death = game.shouldCellDie([1,1]);
+    let death = game.shouldCellDie(cell.x,cell.y);
     expect(death).to.be.true;
 
   })
