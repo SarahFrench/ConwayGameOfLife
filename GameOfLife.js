@@ -42,14 +42,14 @@ class GameOfLife {
 
     this.currentState.forEach( (row, y) => {
       row.forEach( (cell, x) => {
-          //cycle through every poisition
+          //cycle through every position (x,y) in the board
           if(this.isCellAlive(x,y)){
             //position is alive, should it die?
-            let futureValue = this.shouldCellDie(x,y) ? 0 : 1;
+            const futureValue = this.shouldCellDie(x,y) ? 0 : 1;
             this.futureState[y].push(futureValue);
           } else {
             //position is dead, should it become alive?
-            let futureValue = this.shouldCellBecomeAlive(x,y) ? 1 : 0;
+            const futureValue = this.shouldCellBecomeAlive(x,y) ? 1 : 0;
             this.futureState[y].push(futureValue);
           }
       })
@@ -62,7 +62,7 @@ class GameOfLife {
 
   shouldCellDie(x,y){
 
-    let neighbours = this.numberOfLivingNeighbours(x,y);
+    const neighbours = this.numberOfLivingNeighbours(x,y);
 
     /*
     Return true, die, if fewer than two OR more than 3 neighbours.
@@ -72,7 +72,7 @@ class GameOfLife {
   }
 
   shouldCellBecomeAlive(x,y){
-    let neighbours = this.numberOfLivingNeighbours(x,y);
+    const neighbours = this.numberOfLivingNeighbours(x,y);
     /*
     Return true, live if exactly 3 neighbours.
     Otherwise, false; don't live.
@@ -115,10 +115,12 @@ class GameOfLife {
     return aliveNeighboursCount;
   }
 
-  printBoard(){
-    this.currentState.forEach(row => {
-      console.log(row);
-    })
+  isCellAlive(x,y){
+    /*
+      if the project changes to use something other than 1 and 0 to indicate life,
+      this is place to reflect that change
+    */
+    return this.currentState[y][x] === 1;
   }
 
   searchForAnyLife(){
@@ -131,8 +133,10 @@ class GameOfLife {
     return lifeFound;
   }
 
-  isCellAlive(x,y){
-    return this.currentState[y][x] === 1;
+  printBoard(){
+    this.currentState.forEach(row => {
+      console.log(row);
+    })
   }
 }
 
