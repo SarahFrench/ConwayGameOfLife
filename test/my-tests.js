@@ -3,6 +3,8 @@ const Life = require('../GameOfLife').GameOfLife;
 
 describe("Fails gracefully when input is bad (searchForAnyLife function)", function(){
 
+  const ERROR_MESSAGE = 'Make sure the supplied board is a 2D array, with consistent row lengths';
+
   it("an empty board is not valid", function() {
     //Given an empty board
     let board = [];
@@ -14,7 +16,7 @@ describe("Fails gracefully when input is bad (searchForAnyLife function)", funct
 
     //Then I expect it to throw an Error that describes the problem
     expect(makeGame).to.throw(Error);
-    expect(makeGame).to.throw('Make sure the supplied board is 2D, with consistent row lengths');
+    expect(makeGame).to.throw(ERROR_MESSAGE);
   })
 
   it("a 1D board is not valid", function() {
@@ -28,7 +30,7 @@ describe("Fails gracefully when input is bad (searchForAnyLife function)", funct
 
     //Then I expect it to throw an Error that describes the problem
     expect(makeGame).to.throw(Error);
-    expect(makeGame).to.throw('Make sure the supplied board is 2D, with consistent row lengths');
+    expect(makeGame).to.throw(ERROR_MESSAGE);
   })
 
   it("a 2D board with inconsistent row lengths is not valid", function() {
@@ -46,7 +48,7 @@ describe("Fails gracefully when input is bad (searchForAnyLife function)", funct
 
     //Then I expect it to throw an Error that describes the problem
     expect(makeGame).to.throw(Error);
-    expect(makeGame).to.throw('Make sure the supplied board is 2D, with consistent row lengths');
+    expect(makeGame).to.throw(ERROR_MESSAGE);
   })
 
   it("a 2D board with consistent row lengths is valid", function() {
@@ -64,7 +66,7 @@ describe("Fails gracefully when input is bad (searchForAnyLife function)", funct
 
     //Then I expect it to throw an Error that describes the problem
     expect(makeGame).to.not.throw(Error);
-    expect(makeGame).to.not.throw('Make sure the supplied board is 2D, with consistent row lengths');
+    expect(makeGame).to.not.throw(ERROR_MESSAGE);
   })
 
   it("rejects nonsense input", function() {
@@ -96,13 +98,13 @@ describe("Fails gracefully when input is bad (searchForAnyLife function)", funct
 
     //Then I expect it to throw an Error that describes the problem
     expect(makeGame1).to.throw(Error);
-    expect(makeGame1).to.throw('Make sure the supplied board is 2D, with consistent row lengths');
+    expect(makeGame1).to.throw(ERROR_MESSAGE);
     expect(makeGame2).to.throw(Error);
-    expect(makeGame2).to.throw('Make sure the supplied board is 2D, with consistent row lengths');
+    expect(makeGame2).to.throw(ERROR_MESSAGE);
     expect(makeGame3).to.throw(Error);
-    expect(makeGame3).to.throw('Make sure the supplied board is 2D, with consistent row lengths');
+    expect(makeGame3).to.throw(ERROR_MESSAGE);
     expect(makeGame4).to.throw(Error);
-    expect(makeGame4).to.throw('Make sure the supplied board is 2D, with consistent row lengths');
+    expect(makeGame4).to.throw(ERROR_MESSAGE);
   })
 });
 
