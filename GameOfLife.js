@@ -2,7 +2,7 @@ class GameOfLife {
 
   constructor(board){
     if(!this.initialStateValid(board)){
-      throw new Error('Make sure the supplied board is 2D, with consistent row lengths');
+      throw new Error('Make sure the supplied board is a 2D array, with consistent row lengths');
     }
 
     this.currentState = board;
@@ -16,19 +16,23 @@ class GameOfLife {
   }
 
   initialStateValid(board){
-    if( !board || board.length < 2){
-      //board absent or has less than 2 rows
+    if( !board || typeof board != 'object' || board.length < 2){
+      //board absent, not likely to be array, or has less than 2 rows
       return false;
-    } else {
-      //check for consistent row length
-      let rowsConsistentLength = true;
-
-      board.forEach( row => {
-        rowsConsistentLength = (row.length != board[0].length) ? false : rowsConsistentLength;
-      })
-
-      return rowsConsistentLength;
     }
+
+    if (!board.forEach){
+      //object is an actual object, not an array
+      return false;
+    }
+
+    //check for consistent row length
+    let rowsConsistentLength = true;
+    board.forEach( row => {
+      rowsConsistentLength = (row.length != board[0].length) ? false : rowsConsistentLength;
+    })
+
+    return rowsConsistentLength;
   }
 
   resetFutureState(){
