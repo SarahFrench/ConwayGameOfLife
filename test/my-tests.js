@@ -23,7 +23,7 @@ describe("Detecting any life", function(){
   })
 
   it("an board containing life is not found to be empty", function() {
-  // Given a game of life with an empty 5x5 board
+  // Given a game of life that contains a live cell
     let board = [
       [0,0,0,0,0],
       [0,0,0,0,0],
@@ -38,6 +38,50 @@ describe("Detecting any life", function(){
 
   // Then I expect to see nothing
     expect(lifePresent).to.be.true;
+
+  })
+
+})
+
+describe("Detecting life at a given position", function(){
+
+  it("an alive cell is recognised as being alive", function() {
+  // Given a game of life with a live cell
+    let board = [
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,1,0,0],
+      [0,0,0,0,0],
+      [0,0,0,0,0]
+    ];
+    let game = new Life(board);
+    let cell = {x: 2, y:2};
+
+  // When I search for any life
+    let live = game.isCellAlive(cell.x, cell.y);
+
+  // Then I expect to see it's reported as alive
+    expect(live).to.be.true;
+
+  })
+
+  it("a dead cell is recognised as being dead", function() {
+  // Given a game of life with a live cell
+    let board = [
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,0,0,0]
+    ];
+    let game = new Life(board);
+    let cell = {x: 2, y:2};
+
+  // When I search for any life
+    let live = game.isCellAlive(cell.x, cell.y);
+
+  // Then I expect to see it's reported as alive
+    expect(live).to.be.false;
 
   })
 
