@@ -81,50 +81,38 @@ class GameOfLife {
   }
 
   numberOfLivingNeighbours(x,y){
-    let neighbourVectors = [
+    const neighbourVectors = [
       [1,1],
       [1,0],
       [0,1],
       [-1,1]
     ];
 
-    let aliveNeighbours = 0;
+    let aliveNeighboursCount = 0;
 
     neighbourVectors.forEach( vector => {
-      //positive side
-      let neighbourX = x + vector[0];
-      let neighbourY = y + vector[1];
+      for (let i=-1; i <=1; i++){
+        if(i!=0){
+          /*
+            for and if loops cause positons -1 and +1, but not 0, along the vectors
+            be considered neighbours and be tested for live
+          */
 
-      if(
-        neighbourY >= 0 &&
-        neighbourX >= 0 &&
-        neighbourY <= this.largestYCoordinate &&
-        neighbourX <= this.largestXCoordinate
-      ){
-        //coordinates are in bounds
-        if (this.currentState[neighbourY][neighbourX]){
-          aliveNeighbours += 1;
-        }
-      }
+          const neighbourX = x + vector[0]*i;
+          const neighbourY = y + vector[1]*i;
 
-      //negative side
-      neighbourX = x - vector[0];
-      neighbourY = y - vector[1];
+          if( neighbourY >= 0 && neighbourX >= 0 && neighbourY <= this.largestYCoordinate && neighbourX <= this.largestXCoordinate){
+            //coordinates are in bounds; is a valid neighbour
+            if (this.isCellAlive(neighbourX, neighbourY)){
+              aliveNeighboursCount += 1;
+            }
+          }
 
-      if(
-        neighbourY >= 0 &&
-        neighbourX >= 0 &&
-        neighbourY <= this.largestYCoordinate &&
-        neighbourX <= this.largestXCoordinate
-      ){
-        //coordinates are in bounds
-        if (this.currentState[neighbourY][neighbourX]){
-          aliveNeighbours += 1;
         }
       }
     })
 
-    return aliveNeighbours;
+    return aliveNeighboursCount;
   }
 
   printBoard(){
