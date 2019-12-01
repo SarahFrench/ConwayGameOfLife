@@ -1,7 +1,7 @@
 const {expect} = require('chai');
 const Life = require('../GameOfLife').GameOfLife;
 
-describe("Detecting any life", function(){
+describe("Detecting any life (searchForAnyLife function)", function(){
 
   it("an empty board is found to be empty", function() {
   // Given a game of life with an empty 5x5 board
@@ -43,7 +43,7 @@ describe("Detecting any life", function(){
 
 })
 
-describe("Detecting life at a given position", function(){
+describe("Detecting life at a given position (isCellAlive function)", function(){
 
   it("an alive cell is recognised as being alive", function() {
   // Given a game of life with a live cell
@@ -87,7 +87,7 @@ describe("Detecting life at a given position", function(){
 
 })
 
-describe("Detecting neighbours", function() {
+describe("Detecting neighbours (numberOfLivingNeighbours function)", function() {
   it("identifies that there are no living neighbours for a cell on its own", function() {
     /*
     Given a game of life with a 3x3 board
@@ -200,7 +200,7 @@ describe("Detecting neighbours", function() {
   })
 })
 
-describe("Determining who should die", function() {
+describe("Determining who should die (shouldCellDie function)", function() {
   it("a single cell will die", function() {
     // Given a game of life with a 3x3 board and one live cell at the center
     let board = [
