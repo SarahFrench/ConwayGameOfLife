@@ -352,3 +352,27 @@ describe("Determining who should die (shouldCellDie function)", function() {
 
   })
 })
+
+describe("Keeps track of how many turns have passed", function() {
+  it("counts how many turns take place", function() {
+
+    // Given a game of life
+    let board = [
+      [0,0,0],
+      [0,1,0],
+      [0,0,0]
+    ];
+    let game = new Life(board);
+
+    // When X number of turns takes place
+    const x = 5;
+    for(let i=0; i<x; i++){
+      game.takeTurn();
+    }
+
+    // Then I expect the game knows X number of turns have elapsed
+    expect(game.turns).to.be.equal(x);
+
+  })
+
+})
