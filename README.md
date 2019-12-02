@@ -1,6 +1,11 @@
 # Conway's Game Of Life
 
-See also [my notes during this project](https://github.com/SarahFrench/ConwayGameOfLife/blob/master/NOTES-ON-PROGRESS.md)
+Links:
+- [My notes during this project](https://github.com/SarahFrench/ConwayGameOfLife/blob/master/NOTES-ON-PROGRESS.md)
+- **[I used the code from this repo to make a Vue component that visualises the game](https://github.com/SarahFrench/vue-game-of-life)**
+- **[Deployment of the above Vue app](https://sarahfrench.github.io/vue-game-of-life/)**
+
+
 
 ## Setting up the project
 
