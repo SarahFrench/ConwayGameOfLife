@@ -1,8 +1,9 @@
 const {expect} = require('chai');
 const Life = require('../GameOfLife').GameOfLife;
 
-describe("Fails gracefully when input is bad (searchForAnyLife function)", function(){
+describe("Fails gracefully when input is bad (initialStateValid function)", function(){
 
+  //reuse in test suite
   const ERROR_MESSAGE = 'Make sure the supplied board is a 2D array, with consistent row lengths';
 
   it("an empty board is not valid", function() {
@@ -20,7 +21,7 @@ describe("Fails gracefully when input is bad (searchForAnyLife function)", funct
   })
 
   it("a 1D board is not valid", function() {
-    //Given an empty board
+    //Given a 1D board
     let board = [0,0,0,0,0,0];
 
     //When it is the starting state for a game
@@ -53,7 +54,6 @@ describe("Fails gracefully when input is bad (searchForAnyLife function)", funct
 
   it("a 2D board with consistent row lengths is valid", function() {
     //Given a 2D board with consistent row lengths
-
     const board = [
       [0,0,0],
       [0,0,0]
@@ -70,7 +70,7 @@ describe("Fails gracefully when input is bad (searchForAnyLife function)", funct
   })
 
   it("rejects nonsense input", function() {
-    //Given nonsence input
+    //Given non-array/nonsence input
     const input1 = undefined;
     const input2 = "abcdefg";
     const input3 = 0;
@@ -80,7 +80,6 @@ describe("Fails gracefully when input is bad (searchForAnyLife function)", funct
       "key3": "value3",
       "key4": 4,
     };
-
 
     //When it is the starting state for a game
     const makeGame1 = function(){
@@ -111,40 +110,36 @@ describe("Fails gracefully when input is bad (searchForAnyLife function)", funct
 describe("Detecting any life (searchForAnyLife function)", function(){
 
   it("an empty board is found to be empty", function() {
-  // Given a game of life with an empty 5x5 board
+    /*
+      Given a game of life
+      When there's no life
+    */
     let board = [
-      [0,0,0,0,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0]
+      [0,0,0],
+      [0,0,0],
+      [0,0,0]
     ];
     let game = new Life(board);
 
-  // When I search for any life
-    let lifePresent = game.searchForAnyLife();
-
-  // Then I expect to see nothing
-    expect(lifePresent).to.be.false;
+    // Then I expect that no life can be found
+    expect(game.searchForAnyLife()).to.be.false;
 
   })
 
-  it("an board containing life is not found to be empty", function() {
-  // Given a game of life that contains a live cell
+  it("a board containing life is not found to be empty", function() {
+    /*
+      Given a game of life
+      When there is a single live cell
+    */
     let board = [
-      [0,0,0,0,0],
-      [0,0,0,0,0],
-      [0,0,1,0,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0]
+      [0,0,0],
+      [0,1,0],
+      [0,0,0]
     ];
     let game = new Life(board);
 
-  // When I search for any life
-    let lifePresent = game.searchForAnyLife();
-
-  // Then I expect to see nothing
-    expect(lifePresent).to.be.true;
+    // Then I expect that life can be found
+    expect(game.searchForAnyLife()).to.be.true;
 
   })
 
@@ -153,91 +148,81 @@ describe("Detecting any life (searchForAnyLife function)", function(){
 describe("Detecting life at a given position (isCellAlive function)", function(){
 
   it("an alive cell is recognised as being alive", function() {
-  // Given a game of life with a live cell
-    let board = [
-      [0,0,0,0,0],
-      [0,0,0,0,0],
-      [0,0,1,0,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0]
-    ];
-    let game = new Life(board);
-    let cell = {x: 2, y:2};
+    /*
+      Given a game of life
+      When there is a live cell
+   */
+   let board = [
+     [0,0,0],
+     [0,1,0],
+     [0,0,0]
+   ];
+   let game = new Life(board);
+   let cell = {x: 1, y:1};
 
-  // When I search for any life
-    let live = game.isCellAlive(cell.x, cell.y);
-
-  // Then I expect to see it's reported as alive
-    expect(live).to.be.true;
+   // Then I expect to see life detected at that cells coordinates
+    expect(game.isCellAlive(cell.x, cell.y)).to.be.true;
 
   })
 
   it("a dead cell is recognised as being dead", function() {
-  // Given a game of life with a live cell
-    let board = [
-      [0,0,0,0,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0]
-    ];
-    let game = new Life(board);
-    let cell = {x: 2, y:2};
+    /*
+      Given a game of life
+      When all cells are dead
+   */
+   let board = [
+     [0,0,0],
+     [0,0,0],
+     [0,0,0]
+   ];
+   let game = new Life(board);
+   let cell = {x: 1, y:1};
 
-  // When I search for any life
-    let live = game.isCellAlive(cell.x, cell.y);
-
-  // Then I expect to see it's reported as alive
-    expect(live).to.be.false;
+   // Then I expect to see no life detected at a given coordinate
+    expect(game.isCellAlive(cell.x, cell.y)).to.be.false;
 
   })
 
 })
 
 describe("Detecting neighbours (numberOfLivingNeighbours function)", function() {
+
   it("identifies that there are no living neighbours for a cell on its own", function() {
     /*
-    Given a game of life with a 3x3 board
-    When there's one live cell at the center
-      and I check for number of live neighbours next to that cell
+      Given a game of life
+      When there's a single live cell
     */
-
-      let board = [
-        [0,0,0],
-        [0,1,0],
-        [0,0,0]
-      ];
-      let game = new Life(board);
-      let cell = {x: 1, y:1};
-
-      let neighbours = game.numberOfLivingNeighbours(cell.x,cell.y);
+    let board = [
+      [0,0,0],
+      [0,1,0],
+      [0,0,0]
+    ];
+    let game = new Life(board);
+    let cell = {x: 1, y:1};
 
     // Then I expect to see no live neighbours counted
-      expect(neighbours).to.be.equal(0);
+    let neighbourCount = game.numberOfLivingNeighbours(cell.x,cell.y);
+    expect(neighbourCount).to.be.equal(0);
 
   })
 
-  it("identifies presence of neighbours in all positions relative to a cell in the board center", function() {
+  it("identifies presence of neighbours in all possible positions relative to a cell", function() {
     /*
-    Given a game of life with a 3x3 board
-      and all live cells
-    When the cell at the centre is alive (x=1 y=1)
-      and all neighbours are alive
+      Given a game of life
+      When a cell is surrounded by all live cells
+        and the cell is not at the board's edge
     */
-
     let board = [
       [1,1,1],
       [1,1,1],
       [1,1,1]
     ];
     let game = new Life(board);
-    let cell = {x: 1, y:1};
-
-    // When I check the number of live neighbours surrounding cell (1,1)
-    let neighbours = game.numberOfLivingNeighbours(cell.x,cell.y);
+    let cell = {x: 1, y: 1};
 
     // Then I expect the number of live neighbours to be 8
-    expect(neighbours).to.be.equal(8);
+    let neighbourCount = game.numberOfLivingNeighbours(cell.x,cell.y);
+    expect(neighbourCount).to.be.equal(8);
   })
 
   it("identifies the correct number of neighbours for different positions in a mixed board", function() {
@@ -284,20 +269,18 @@ describe("Detecting neighbours (numberOfLivingNeighbours function)", function() 
     let game = new Life(board);
     const cell = {x:0, y:0, neighbours:3 };
 
-    // Then I expect the number of live neighbours to be correct, and no out of boundary errors
-    let neighbours = game.numberOfLivingNeighbours(cell.x,cell.y);
-
-    expect(neighbours).to.be.equal(cell.neighbours);
+    // Then I expect the number of live neighbours to be counted correctly
+    let neighbourCount = game.numberOfLivingNeighbours(cell.x,cell.y);
+    expect(neighbourCount).to.be.equal(cell.neighbours);
 
   })
 
   it("can count neighbours for a cell on the board's edge", function() {
     /*
-    Given a game of life with a 3x3 board
-        and a cluster of living cells against the left boundary
-    When I count the number of alive neighbours for the cell at the boundary midpoint
+      Given a game of life
+      When there's a live cell in the middle of a game boundary
+        surrounded by live cells
     */
-
     let board = [
       [1,1,0],
       [1,1,0],
@@ -316,7 +299,7 @@ describe("Detecting neighbours (numberOfLivingNeighbours function)", function() 
 describe("Determining who should die (shouldCellDie function)", function() {
   it("a single cell will die", function() {
     /*
-      Given a game of life with a 3x3 board
+      Given a game of life
       When there's a single live cell at the center
     */
     let board = [
@@ -335,8 +318,8 @@ describe("Determining who should die (shouldCellDie function)", function() {
 
   it("a cell with 4 neighbours will die", function() {
     /*
-    Given a game of life with a 3x3 board
-    When one live cell has 4 live neighbours
+      Given a game of life
+      When one live cell has 4 live neighbours
     */
     let board = [
       [0,1,0],
