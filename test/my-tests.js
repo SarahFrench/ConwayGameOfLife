@@ -372,6 +372,28 @@ describe("Determining who should die (shouldCellDie function)", function() {
   })
 })
 
+describe("Knows the maximum coordinates on X and Y in the board", function() {
+
+  it("determines max coordinates", function() {
+    /*
+     Given a game of life
+     When the board is X columns wide and Y rows high
+    */
+    let board = [
+      [0,0,0],
+      [0,0,0],
+      [0,0,0]
+    ];
+    let game = new Life(board);
+
+    // Then I expect the game to know the largest coordinates in both X and Y directions
+    expect(game.largestXCoordinate).to.be.equal(2);
+    expect(game.largestYCoordinate).to.be.equal(2);
+
+  })
+
+})
+
 describe("Keeps track of how many turns have passed", function() {
   it("counts how many turns take place", function() {
 
