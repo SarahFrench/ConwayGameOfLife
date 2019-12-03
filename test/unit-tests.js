@@ -372,7 +372,7 @@ describe("Determining who should die (shouldCellDie function)", function() {
   })
 })
 
-describe("Knows the maximum coordinates on X and Y in the board", function() {
+describe("Knows the maximum coordinates on X and Y in the board (constructor)", function() {
 
   it("determines max coordinates", function() {
     /*
@@ -394,7 +394,8 @@ describe("Knows the maximum coordinates on X and Y in the board", function() {
 
 })
 
-describe("Keeps track of how many turns have passed", function() {
+describe("Keeps track of how many turns have passed (takeTurn function)", function() {
+
   it("counts how many turns take place", function() {
 
     // Given a game of life
@@ -414,6 +415,64 @@ describe("Keeps track of how many turns have passed", function() {
     // Then I expect the game knows X number of turns have elapsed
     expect(game.turns).to.be.equal(x);
 
+  })
+
+  it("future state is blank after a turn of the game", function() {
+
+    /*
+      Given a game of life
+      When a turn passes
+    */
+    let board = [
+      [0,0,0],
+      [0,1,0],
+      [0,0,0]
+    ];
+    let game = new Life(board);
+    game.takeTurn();
+
+    /*
+     Then I expect the games futureState to be empty afterwards
+    */
+
+    expect(typeof game.futureState).to.be.equal('object');
+    expect(game.futureState.length).to.be.equal(game.currentState.length);
+
+    game.futureState.forEach(element => {
+      expect(typeof element).to.be.equal('object');
+      expect(element.length).to.be.equal(0);
+    })
+  })
+
+})
+
+describe("Can (re)set future state (resetFutureState function)", function() {
+
+  it("sets future state when a game instance is created", function() {
+
+    /*
+      Given a game of life
+      When it is created with a valid board input
+    */
+    let board = [
+      [0,0,0],
+      [0,1,0],
+      [0,0,0]
+    ];
+    let game = new Life(board);
+
+    /*
+     Then I expect the games futureState to have been set as an array of empty
+     arrays of correct length
+     */
+
+    expect(typeof game.futureState).to.be.equal('object');
+    expect(game.futureState.length).to.be.equal(game.currentState.length);
+
+    game.futureState.forEach(element => {
+      expect(typeof element).to.be.equal('object');
+      expect(element.length).to.be.equal(0);
+    })
   })
 
 })
