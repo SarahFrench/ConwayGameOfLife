@@ -11,7 +11,7 @@ describe("Fails gracefully when input is bad (initialStateValid function)", func
     let board = [];
 
     //When it is the starting state for a game
-    const makeGame = function(board){
+    const makeGame = function(){
       let game = new Life(board);
     }
 
@@ -94,16 +94,13 @@ describe("Fails gracefully when input is bad (initialStateValid function)", func
     const makeGame4 = function(){
       let game = new Life(input3);
     }
+    const scenarios = [makeGame1, makeGame2, makeGame3, makeGame4]
 
-    //Then I expect it to throw an Error that describes the problem
-    expect(makeGame1).to.throw(Error);
-    expect(makeGame1).to.throw(ERROR_MESSAGE);
-    expect(makeGame2).to.throw(Error);
-    expect(makeGame2).to.throw(ERROR_MESSAGE);
-    expect(makeGame3).to.throw(Error);
-    expect(makeGame3).to.throw(ERROR_MESSAGE);
-    expect(makeGame4).to.throw(Error);
-    expect(makeGame4).to.throw(ERROR_MESSAGE);
+    //Then I expect the game to throw a descriptive error when constructed
+    scenarios.forEach(scenario => {
+      expect(scenario).to.throw(Error);
+      expect(scenario).to.throw(ERROR_MESSAGE);
+    })
   })
 });
 
@@ -225,42 +222,47 @@ describe("Detecting neighbours (numberOfLivingNeighbours function)", function() 
     expect(neighbourCount).to.be.equal(8);
   })
 
-  it("identifies the correct number of neighbours for different positions in a mixed board", function() {
-
+  it("can count neighbours at board edges without throwing errors", function() {
     /*
-    Given a game of life with a 3x3 board
-        and a mixture of dead and alive cells
-        Cell 1 in position x=1, y=0 aka [0][1]
-        Cell 2 in position x=1, y=1 aka [1][1]
-        Cell 3 in position x=2, y=2 aka [2][1]
-    When I count the number of alive neighbours for each
+      Given a game of life
+      When there are live cells on a boundary and in a corner
     */
     let board = [
-      [0,1,1],
-      [1,1,0],
-      [0,1,1]
+      [1,0,0],
+      [1,0,0],
+      [0,0,0]
     ];
     let game = new Life(board);
-    const cell1 = {x:1, y:0, neighbours:3 };
-    const cell2 = {x:1, y:1, neighbours:5 };
-    const cell3 = {x:2, y:2, neighbours:2 };
-    const cells = [cell1, cell2, cell3];
+    const cell1 = {x:0, y:0};
+    const cell2 = {x:0, y:1};
+    const cells = [cell1, cell2];
 
-    // Then I expect the number of live neighbours to be correct
+    /*
+      Then I expect that counting the number of live neighbours does not cause any
+      out of boundary errors to occur
 
-    cells.forEach( cell => {
-      let neighbours = game.numberOfLivingNeighbours(cell.x, cell.y);
-      expect(neighbours).to.be.equal(cell.neighbours);
-    })
+      (JavaScript will return undefined if you try to access a position outside the board)
+    */
+    cells.forEach(cell => {
+      expect(function(){
+          let game = new Life(board);
+          game.numberOfLivingNeighbours(cell.x,cell.y);
+      }).to.not.throw(TypeError);
+
+      expect(function(){
+        let game = new Life(board);
+        game.numberOfLivingNeighbours(cell.x,cell.y);
+      }).to.not.throw('undefined');
+    });
+
   })
 
   it("can count neighbours for a cell in a corner of the board", function() {
     /*
-    Given a game of life with a 3x3 board
-        and a cluster of living cells in a corner
-    When I count the number of alive neighbours for the corner cell x=0 y=0
+      Given a game of life
+      When there's a live cell in the corner
+        surrounded by live cells
     */
-
     let board = [
       [1,1,0],
       [1,1,0],
@@ -289,11 +291,45 @@ describe("Detecting neighbours (numberOfLivingNeighbours function)", function() 
     let game = new Life(board);
     const cell = {x:0, y:1, neighbours:5 };
 
-    // Then I expect the number of live neighbours to be correct, and no out of boundary errors
-    let neighbours = game.numberOfLivingNeighbours(cell.x,cell.y);
-    expect(neighbours).to.be.equal(cell.neighbours);
+    /*
+      Then I expect the number of live neighbours to be counted correctly,
+        and no out of boundary errors to occur
+    */
+    let neighbourCount = game.numberOfLivingNeighbours(cell.x,cell.y);
+    expect(neighbourCount).to.be.equal(cell.neighbours);
 
   })
+
+  it("identifies the correct number of neighbours for different positions in a mixed board", function() {
+
+    /*
+    Given a game of life
+    When there are a mixture of dead and alive cells, including:
+        Cell 1 in position x=1, y=0 with 3 neighbours
+        Cell 2 in position x=1, y=1 with 5 neighbours
+        Cell 3 in position x=2, y=2 with 2 neighbours
+    */
+    let board = [
+      [0,1,1],
+      [1,1,0],
+      [0,1,1]
+    ];
+    let game = new Life(board);
+    const cell1 = {x:1, y:0, neighbours:3 };
+    const cell2 = {x:1, y:1, neighbours:5 };
+    const cell3 = {x:2, y:2, neighbours:2 };
+    const cells = [cell1, cell2, cell3];
+
+    /*
+      Then I expect the correct number of live neighbours to be counted for each
+        position tested
+    */
+    cells.forEach(cell => {
+      let neighbourCount = game.numberOfLivingNeighbours(cell.x, cell.y);
+      expect(neighbourCount).to.be.equal(cell.neighbours);
+    })
+  })
+
 })
 
 describe("Determining who should die (shouldCellDie function)", function() {
