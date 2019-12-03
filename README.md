@@ -26,7 +26,7 @@ let board = [
 let game = GameOfLife.new(board);
 ```
 
- There are some checks to make sure the input is sensible, but it's assumed the values inside either 0 or 1.
+ There are some checks to make sure the input is sensible, but it's assumed the values inside are either 0 or 1.
 
 **Not infinite** : My solution isn't infinite as the brief describes, but can take in starting states of different sizes.
 
