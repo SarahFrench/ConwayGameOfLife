@@ -68,3 +68,20 @@ The GameOfLife class is initialised with a 'board' (array of arrays). This is as
     - has at least 2 rows
     - each row has the same length (i.e board is square)
   - this is used to throw an error in the initialiser if input is not valid
+
+### 2019-12-01
+
+Took the code for the GameOfLife class and made it into a basic Vue app
+- GitHub: https://github.com/SarahFrench/ConwayGameOfLife
+- Deployed: https://sarahfrench.github.io/vue-game-of-life/
+
+I've only just started learning Vue so this was a fun extra, but could be improved.
+
+I learned a lot:
+ - a bit on how Vue manages re-rendering of components (it can't see property changes in objects)
+ - scoped CSS for components doesn't allow media queries!
+ - deploying a Vue CLI project using Travis, and management of API Tokens in Travis
+
+### 2019-12-02 to end
+
+Refactoring and adding further unit tests
