@@ -4,8 +4,10 @@
   "description": "An implementation of Conway's Game of Life",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "watch": "mocha --watch"
+    "test": "npx mocha",
+    "watch": "npx mocha --watch",
+    "unit": "npx mocha ./test/unit-tests.js",
+    "scenario": "npx mocha ./test/scenarios.js"
   },
   "repository": {
     "type": "git",
