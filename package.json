@@ -21,7 +21,8 @@
   "homepage": "https://github.com/SarahFrench/ConwayGameOfLife#readme",
   "dependencies": {
     "chai": "^4.2.0",
-    "cucumber": "^6.0.5",
-    "mocha": "^6.2.2"
+    "mocha": "^6.2.2",
+    "yargs-parser": ">=13.1.2",
+    "minimist": ">=0.2.1"
   }
 }
