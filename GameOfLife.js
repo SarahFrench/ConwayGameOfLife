@@ -95,25 +95,20 @@ class GameOfLife {
     let aliveNeighboursCount = 0;
 
     neighbourVectors.forEach( vector => {
-      for (let i=-1; i <=1; i++){
-        if(i!=0){
-          /*
-            for and if loops cause positons -1 and +1, but not 0, along the vectors
-            be considered neighbours and be tested for live
-          */
+      /*
+        check positions +1 and -1 along vector, but not at 0 because that's the cell we're finding neighbours of
+      */
+      [1, -1].forEach( ( num ) => {
+        const neighbourX = x + vector[0]*num;
+        const neighbourY = y + vector[1]*num;
 
-          const neighbourX = x + vector[0]*i;
-          const neighbourY = y + vector[1]*i;
-
-          if( neighbourY >= 0 && neighbourX >= 0 && neighbourY <= this.largestYCoordinate && neighbourX <= this.largestXCoordinate){
-            //coordinates are in bounds; is a valid neighbour
-            if (this.isCellAlive(neighbourX, neighbourY)){
-              aliveNeighboursCount += 1;
-            }
+        if( neighbourY >= 0 && neighbourX >= 0 && neighbourY <= this.largestYCoordinate && neighbourX <= this.largestXCoordinate){
+          //coordinates are in bounds; is a valid neighbour
+          if (this.isCellAlive(neighbourX, neighbourY)){
+            aliveNeighboursCount += 1;
           }
-
         }
-      }
+      })
     })
 
     return aliveNeighboursCount;
